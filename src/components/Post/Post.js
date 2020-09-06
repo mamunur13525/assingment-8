@@ -8,27 +8,26 @@ import Comments from "../Comments/Comments";
 
 /* Metarial Content import Start*/
 const defaultProps = {
-    bgcolor: "background.paper",
-    m: 1,
-    border: 1,
-    style: { width: "70rem", height: "10rem" },
-  };
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      "& > *": {
-        margin: theme.spacing(1),
-      },
+  bgcolor: "background.paper",
+  m: 1,
+  border: 1,
+  style: { width: "70rem", height: "10rem" },
+};
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
     },
-  }));
-  const theme = {
-    spacing: [0, 2, 3, 5, 8],
-  };
+  },
+}));
+const theme = {
+  spacing: [0, 2, 3, 5, 8],
+};
 /* Metarial Content import End*/
 
 const Post = (props) => {
   const { body, id, title, userId } = props.post;
   const classes = useStyles();
-
 
   return (
     <div>
@@ -39,21 +38,18 @@ const Post = (props) => {
             <span className="idclass">{id}.</span> {title}
           </strong>
           <Box py={2}>
-           
             <p className="body">{body}</p>
           </Box>
 
           <Box mt={2}>
-              <Link to={`/${id}`}>
-                    <Button  mt={2} variant="contained" color="primary">
-                        <b> See More....</b>
-                    </Button>
+            <Link to={`/${id}`}>
+              <Button mt={2} variant="contained" color="primary">
+                <b> See More....</b>
+              </Button>
             </Link>
           </Box>
         </Box>
       </Box>
-
-      
     </div>
   );
 };
