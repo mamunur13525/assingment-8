@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Comments from "../Comments/Comments";
 
+
 const defaultProps = {
   bgcolor: "background.paper",
   m: 1,
@@ -15,7 +16,6 @@ const defaultProps = {
 const PostDetail = () => {
   const { id } = useParams();
   const [post, setPost] = useState({});
-
   const postUrl = `https://jsonplaceholder.typicode.com/posts/${id}`;
 
 
@@ -26,18 +26,6 @@ const PostDetail = () => {
   }, []);
   const { title, body } = post;
 
-
-
-  const [comments, setComments] = useState([]);
-  const commentUrl =`https://jsonplaceholder.typicode.com/comments?postId=${id}`;
-  useEffect(() => {
-      fetch(commentUrl)
-      .then(res => res.json())
-      .then(data => setComments(data))
-  },[])
-  
- 
-
   return (
     <div>
       {/* Metarial Ui Included */}
@@ -47,26 +35,17 @@ const PostDetail = () => {
             <span className="idclass">{id}.</span> {title}
           </strong>
           <Box py={2}>
-            {" "}
+           
             <p className="body">{body}</p>
           </Box>
 
-          <Box mt={2}>
-
-            <Button mt={2} variant="contained" color="primary">
-              <b> Show Comments</b>
-            </Button>
-
-          </Box>
+         
         </Box>
       </Box>
-      
-      {
-         comments.map(comment => <Comments key={comment.id} comment={comment}></Comments>)
-      }
- 
-       
-      
+     
+      <h1 style={{textAlign:'center'}}>Comments Below Down</h1>
+       <div  style={{border: "1px solid black", width: '80%', margin: 'auto'}}> <Comments key={id} postId={id}></Comments>
+       </div>
     </div>
   );
 };

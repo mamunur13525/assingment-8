@@ -1,50 +1,23 @@
-import React, { useState, useEffect } from "react";
-import Box from "@material-ui/core/Box";
-
-
-
-
-const defaultProps = {
-  bgcolor: "#F0F2F5",
-  m: 1,
-  p: 4,
-  style: { width: "60rem", height: "8rem" },
-};
+import React, { useState, useEffect } from 'react';
+import CommentShow from './CommentShow';
 
 const Comments = (props) => {
-  const { name, body,email,id } = props.comment;
-const [userPic, setUserPic] = useState([])
 
-  useEffect(()=>{
-    fetch('http://jsonplaceholder.typicode.com/photos?_start=0&_limit=500')
-    .then(res => res.json())
-    .then(data => setUserPic(data))
-  },[])
+    const [comments, setComments] = useState([]);
 
-  const fivePics = userPic.slice(0,1)
-  console.log(fivePics)
+    useEffect(()=>{
+        fetch(`https://jsonplaceholder.typicode.com/comments?postId=${props.postId}`)
+        .then(res => res.json())
+        .then(data => setComments(data))
+    },[])
 
-  return (
-    <div >
-      {
-        fivePics.map(pic =>      
-          <Box display="flex" justifyContent="center">
-        
-            <Box  {...defaultProps}>
-                <Box >
-                    <img style={{width: "50px", borderRadius: "50%"}} src={pic.thumbnailUrl}></img>
-                    </Box>
-                    <Box  py={2}>
-                            <strong>{name}</strong>
-                            <p>email: {email}</p>
-                            <p className="body">{body}</p>
-                    </Box>
-            </Box>
-          </Box>)
-      }
-
-    </div>
-  );
+    return (
+        <div>
+            {
+                comments.map(comment => <CommentShow comment ={comment}></CommentShow>)
+            }
+        </div>
+    );
 };
 
 export default Comments;
